@@ -363,8 +363,25 @@ export default class WheelVis extends Component {
                 let newArc = firstArcSection.exec( d3.select(this).attr("d") )[1];
 
                 newArc = newArc.replace(/,/g , " ");
+                let angle = d.x;
+
+                if (angle >= (Math.PI/2 - 0.01)&& angle <= (3*Math.PI/2 - 0.01)) {
+                    let startLoc 	= /M(.*?)A/,		//Everything between the capital M and first capital A
+                        middleLoc 	= /A(.*?)0 0 1/,	//Everything between the capital A and 0 0 1
+                        endLoc 		= /0 0 1 (.*?)$/;	//Everything between the 0 0 1 and the end of the string (denoted by $)
+                    //Flip the direction of the arc by switching the start and end point (and sweep flag)
+                    let newStart = endLoc.exec( newArc )[1];
+                    let newEnd = startLoc.exec( newArc )[1];
+                    let middleSec = middleLoc.exec( newArc )[1];
+
+                    //Build up the new arc notation, set the sweep-flag to 0
+                    newArc = "M" + newStart + "A" + middleSec + "0 0 0 " + newEnd;
+                    d.flipped = true;
+                } else{
+                    d.flipped = false;
+                }
                 groups.append("path")
-                    .attr("class", "hiddenDonutArcs")
+                    .attr("class", "hiddenArcs")
                     .attr("id", "arc"+i)
                     .attr("d", newArc)
                     .style("fill", "none");
@@ -372,7 +389,13 @@ export default class WheelVis extends Component {
 
 
         let text = groups.append("text")
-            .attr("dy", 30)
+            .attr("dy", function(d) {
+                if (d.flipped) {
+                    return -30;
+                } else{
+                    return 40;
+                }
+            })
             .attr("letter-spacing",".10em")
             .append("textPath") //append a textPath to the text element
             .attr("xlink:href", function(d,i){  return ("#arc"+i)})
