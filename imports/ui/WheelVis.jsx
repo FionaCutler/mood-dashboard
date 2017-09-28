@@ -51,7 +51,8 @@ export default class WheelVis extends Component {
             "amazement":"#037f27",
             "grief":"#007bd8",
             "loathing":"#3c003c",
-            "rage":"#b7001f",};
+            "rage":"#b7001f",
+        };
         let colors = {
             "default":"#ffffff",
             "ecstasy":"#ffe854",
@@ -401,20 +402,7 @@ export default class WheelVis extends Component {
             .attr("xlink:href", function(d,i){  return ("#arc"+i)})
             .attr("startOffset","50%")
             .style("text-anchor","middle")
-            .text(function(d) { return d.name; })
-            /*.attr("transform", function(d) {
-                let rotation = ((d.x + (d.dx /2)) * 180/Math.PI) - 90;
-                return "rotate(" + rotation + " 0 0)";
-            })
-            .attr("x", function(d){
-                let padding;
-                if(d.y === 0) {
-                    padding = 25;
-                } else{
-                    padding = 0;
-                }
-                return d.y + padding;
-            })*/
+            .text(function(d) { return d.name;})
             .attr("dx", "6") // margin
             .attr("dy", ".35em") // vertical-align
             .on("click",function (d){ self.props.handler(d.name);} );
