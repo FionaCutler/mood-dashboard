@@ -7,16 +7,46 @@ import { withRouter } from 'react-router';
 import { Entries } from '../api/entries.js'
 import WheelVis from './WheelVis.jsx'
 
-class CreateEntryPage extends Component {
+class CreateEditEntryPage extends Component {
     constructor(props) {
         super(props);
+        let fromDate;
+        let toDate;
+        let toggleActive;
+        let mood;
+        let symptoms;
+        let thoughts;
+        let isEdit;
+        if(props
+            && props.match
+            && props.match.params
+            && props.match.params.id) {
+            let entry = Entries.findOne({_id:props.match.params.id});
+            console.log(entry);
+            fromDate = moment(entry.fromDate);
+            toDate = moment(entry.toDate);
+            toggleActive = entry.unexplained;
+            mood = entry.mood;
+            symptoms = entry.symptoms;
+            thoughts = entry.thoughts;
+            isEdit = true;
+        } else{
+            fromDate = moment().subtract(4,'hour');
+            toDate = moment();
+            toggleActive = false;
+            mood = "";
+            symptoms = 0;
+            thoughts = "";
+            isEdit = false;
+        }
         this.state = {
-            toggleActive: false,
-            fromDate:moment().subtract(4,'hour'),
-            toDate:moment(),
-            mood:"",
-            symptoms: 0,
-            thoughts:""
+            fromDate:fromDate,
+            toDate:toDate,
+            toggleActive: toggleActive,
+            mood:mood,
+            symptoms: symptoms,
+            thoughts:thoughts,
+            isEdit:isEdit,
         };
     }
 
@@ -41,7 +71,11 @@ class CreateEntryPage extends Component {
             owner: Meteor.userId(),
 
         };
-        Entries.insert(entry);
+        if (this.state.isEdit){
+
+        } else{
+            Entries.insert(entry);
+        }
         this.props.history.push('/entries');
 
     }
@@ -177,4 +211,4 @@ class CreateEntryPage extends Component {
     }
 }
 
-export default withRouter(CreateEntryPage);
+export default withRouter(CreateEditEntryPage);

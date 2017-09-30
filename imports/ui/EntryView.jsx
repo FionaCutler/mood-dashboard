@@ -17,7 +17,6 @@ export default class Entry extends Component {
         return (
 
             <tr>
-                <td><Link to={"/entries/edit/" + this.props.entry._id}><button className="btn black-text">Edit</button></Link></td>
                 <td>{ fromDateString }</td>
                 <td>{ toDateString }</td>
                 <td>{this.props.entry.mood}</td>

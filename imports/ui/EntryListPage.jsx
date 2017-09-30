@@ -12,7 +12,7 @@ class EntryListPage extends Component {
         return(
             <div>
                 <Link to="/entries/new"><button className="btn black-text"><i className="fa fa-plus fa-fw"/>Create New</button></Link>
-
+                <Link to={"/entries/view/" + Meteor.userId()}><button className="btn black-text pull-right" ><i className="fa fa-share-alt fa-fw"/>Share Link</button></Link>
                 <EntryTable entries={this.props.entries}/>
             </div>
         );

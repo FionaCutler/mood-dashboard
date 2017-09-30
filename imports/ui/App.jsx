@@ -8,8 +8,8 @@ import Index from './Index.jsx'
 
 import Navbar from './Navbar.jsx';
 import EntryListPage from "./EntryListPage.jsx";
-import CreateEntryPage from "./CreateEntryPage.jsx"
-
+import EntryViewPage from "./EntryViewPage.jsx";
+import CreateEditEntryPage from "./CreateEditEntryPage.jsx"
 import Authenticated from './pages/Authenticated.js';
 
 
@@ -22,8 +22,10 @@ const App = (appProps) => {
         <div className="container">
         <Switch history={browserHistory}>
             <Route exact name="index" path="/" component={Index}  />
+            <Route exact name="index" path="/entries/view/:userid" component={EntryViewPage}  />
             <Authenticated exact path="/entries" component={EntryListPage} {...appProps}/>
-            <Authenticated exact path="/entries/new" component={CreateEntryPage} {...appProps}/>
+            <Authenticated exact path="/entries/new" component={CreateEditEntryPage} {...appProps}/>
+            <Authenticated path="/entries/edit/:id" component={CreateEditEntryPage} {...appProps}/>
         </Switch>
         </div>
     </div>

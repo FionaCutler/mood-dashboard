@@ -17,6 +17,7 @@ export default class EntryTable extends Component {
         <table className="table">
             <thead>
             <tr>
+                <th></th>
                 <th>From</th>
                 <th>To</th>
                 <th>Mood</th>
