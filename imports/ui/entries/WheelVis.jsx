@@ -69,7 +69,7 @@ export default class WheelVis extends Component {
             "surprise":"#59bdff",
             "sadness":"#5151ff",
             "disgust":"#ff54ff",
-            "anger":"#d40000",
+            "anger":"#ff0000",
             "anticipation":"#ffa854",
             "serenity":"#ffffb1",
             "acceptance":"#8cff8c",

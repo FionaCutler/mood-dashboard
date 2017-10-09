@@ -7,29 +7,33 @@ import { Meteor } from 'meteor/meteor';
 import Index from './Index.jsx'
 
 import Navbar from './Navbar.jsx';
-import EntryListPage from "./EntryListPage.jsx";
-import EntryViewPage from "./EntryViewPage.jsx";
-import CreateEditEntryPage from "./CreateEditEntryPage.jsx"
-import Authenticated from './pages/Authenticated.js';
-
+import EntryListPage from "./entries/EntryListPage.jsx";
+import EntryViewPage from "./entries/EntryViewPage.jsx";
+import CreateEditEntryPage from "./entries/CreateEditEntryPage.jsx"
+import AlertPage from './alerts/AlertPage.jsx'
+import Authenticated from './accounts/Authenticated.js';
+import { Segment } from 'semantic-ui-react'
 
 const browserHistory = createBrowserHistory();
 const App = (appProps) => {
     return(
-    <Router>
-    <div>
-        <Navbar {...appProps}/>
-        <div className="container">
-        <Switch history={browserHistory}>
-            <Route exact name="index" path="/" component={Index}  />
-            <Route exact name="index" path="/entries/view/:userid" component={EntryViewPage}  />
-            <Authenticated exact path="/entries" component={EntryListPage} {...appProps}/>
-            <Authenticated exact path="/entries/new" component={CreateEditEntryPage} {...appProps}/>
-            <Authenticated path="/entries/edit/:id" component={CreateEditEntryPage} {...appProps}/>
-        </Switch>
+        <div>
+        <Router>
+            <div>
+            <Navbar {...appProps} />
+            <Segment>
+            <Switch history={browserHistory}>
+                <Route exact name="index" path="/" component={Index}  />
+                <Route exact name="index" path="/entries/view/:userid" component={EntryViewPage}  />
+                <Authenticated exact path="/entries" component={EntryListPage} {...appProps}/>
+                <Authenticated exact path="/entries/new" component={CreateEditEntryPage} {...appProps}/>
+                <Authenticated path="/entries/edit/:id" component={CreateEditEntryPage} {...appProps}/>
+                <Authenticated path="/alerts" component={AlertPage} {...appProps}/>
+            </Switch>
+            </Segment>
         </div>
-    </div>
     </Router>
+        </div>
     );
 };
 

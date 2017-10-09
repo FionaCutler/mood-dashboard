@@ -1,28 +1,50 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import AccountDialog from "./accounts/AccountDialog.jsx";
+import { Menu } from 'semantic-ui-react';
+import { withRouter } from 'react-router';
 
-import { Link } from 'react-router-dom';
-import AccountsUIWrapper from './AccountsUIWrapper.jsx';
+class Navbar extends Component {
+    constructor(props){
+        super(props);
 
-export default class Navbar extends Component {
+        console.log(props.location.pathname);
+        let item;
+        if (props.location.pathname === "/alerts"){
+            item = "alerts";
+        } else if (props.location.pathname === "/entries"){
+            item = "entries";
+        } else{
+            item = "home";
+        }
+
+        this.state = {activeItem:item};
+    }
+    handleItemClick = (e, { name }) => this.setState({ activeItem: name });
     render(){
         return(
-            <nav className="navbar navbar-default">
-                <div className="container-fluid">
-                    <div className="navbar-header">
-                        <Link to="/" className="navbar-brand">Mood Dashboard</Link>
-                    </div>
-                    <ul className="nav navbar-nav">
-                        <li className="active"><Link to="/">Home</Link></li>
-                        <li><Link to="/entries">My Entries</Link></li>
-                        <li><Link to="/about">About Us</Link></li>
-                        <li><Link to="/contact">Contact Us</Link></li>
-                    </ul>
-
-                    <ul className="nav navbar-nav navbar-right">
-                            <AccountsUIWrapper/>
-                    </ul>
-                </div>
-            </nav>
+            <div>
+                <Menu pointing>
+                    <Menu.Item name="home"
+                               as={Link}
+                               to='/'
+                               active={this.state.activeItem === 'home'}
+                               onClick={this.handleItemClick}>Home</Menu.Item>
+                    <Menu.Item name="entries"
+                               as={Link}
+                               to='/entries'
+                               active={this.state.activeItem === 'entries'}
+                               onClick={this.handleItemClick} >Entries</Menu.Item>
+                    <Menu.Item name="alerts" as={Link} to='/alerts'
+                               active={this.state.activeItem === 'alerts'}
+                               onClick={this.handleItemClick}>Alerts</Menu.Item>
+                    <Menu.Menu position='right'>
+                        <Menu.Item ><AccountDialog/></Menu.Item>
+                    </Menu.Menu>
+                </Menu>
+            </div>
         );
     }
 }
+
+export default withRouter(Navbar);

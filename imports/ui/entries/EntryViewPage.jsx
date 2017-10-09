@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import EntryViewTable from "./EntryViewTable.jsx";
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Entries } from '../api/entries.js'
+import { Entries } from '../../api/entries.js'
 import { Meteor } from 'meteor/meteor';
 
 class EntryViewPage extends Component {

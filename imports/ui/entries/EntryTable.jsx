@@ -14,15 +14,16 @@ export default class EntryTable extends Component {
 
     render(){
         return(
-        <table className="table">
+        <table className="pt-table">
             <thead>
             <tr>
-                <th></th>
                 <th>From</th>
                 <th>To</th>
                 <th>Mood</th>
                 <th>Conversion Symptoms</th>
                 <th>Unexplained Symptoms?</th>
+                <th></th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>

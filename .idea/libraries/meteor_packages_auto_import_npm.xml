@@ -441,7 +441,6 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/stringstream/example.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/strip-indent/index.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/strip-indent/cli.js" />
-        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/tmeasday_check-npm-versions/0.2.0/npm/node_modules/semver/semver.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/pathMatch.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/pubsuffix.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/memstore.js" />
@@ -3696,6 +3695,7 @@
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/vhost/index.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/pause/index.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/fresh/index.js" />
+        <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/tmeasday_check-npm-versions/0.3.1/npm/node_modules/semver/semver.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/node.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/browser.js" />
         <item url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/debug.js" />
@@ -6093,7 +6093,6 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/stringstream/example.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/strip-indent/index.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/strip-indent/cli.js" />
-      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/tmeasday_check-npm-versions/0.2.0/npm/node_modules/semver/semver.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/pathMatch.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/pubsuffix.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/fortawesome_fontawesome/4.7.0/npm/node_modules/tough-cookie/lib/memstore.js" />
@@ -9348,6 +9347,7 @@
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/vhost/index.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/pause/index.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/fresh/index.js" />
+      <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/tmeasday_check-npm-versions/0.3.1/npm/node_modules/semver/semver.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/node.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/browser.js" />
       <root url="file://$USER_HOME$/AppData/Local/.meteor/packages/webapp/1.3.19/npm/node_modules/debug/debug.js" />

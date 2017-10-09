@@ -1,18 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router-dom';
-
+import { Meteor } from 'meteor/meteor';
 import EntryTable from "./EntryTable";
+
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Entries } from '../api/entries.js'
-import { Meteor } from 'meteor/meteor';
+import { Entries } from '../../api/entries.js'
+
 
 class EntryListPage extends Component {
     render(){
         return(
             <div>
-                <Link to="/entries/new"><button className="btn black-text"><i className="fa fa-plus fa-fw"/>Create New</button></Link>
-                <Link to={"/entries/view/" + Meteor.userId()}><button className="btn black-text pull-right" ><i className="fa fa-share-alt fa-fw"/>Share Link</button></Link>
+                <Link to="/entries/new" role="button" className="ui button"><icon className="fa fa-plus fa-fw"/>Create New Entry</Link>
                 <EntryTable entries={this.props.entries}/>
             </div>
         );
@@ -21,11 +21,11 @@ class EntryListPage extends Component {
 }
 EntryListPage.propTypes = {
     entries:PropTypes.array.isRequired,
-
 };
+
 export default createContainer(() => {
-    const entries = Entries.find({owner:Meteor.userId()}, { sort: { toDate: -1 } }).fetch();
+    Meteor.subscribe('entries');
     return {
-        entries:entries,
-    };
+        entries:Entries.find({},{ sort: { toDate: -1 }}).fetch()
+    }
 }, EntryListPage);

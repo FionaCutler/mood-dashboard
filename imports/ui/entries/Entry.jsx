@@ -11,18 +11,24 @@ export default class Entry extends Component {
     toggleVisibility(){
         this.setState({detailsVisible:!this.state.detailsVisible});
     }
+
+    handleDelete(){
+        Meteor.call("entries.remove",this.props.entry._id);
+    }
     render() {
         const fromDateString = moment(this.props.entry.fromDate).format('MMMM Do YYYY, h:mm a');
         const toDateString = moment(this.props.entry.toDate).format('MMMM Do YYYY, h:mm a');
         return (
 
             <tr>
-                <td><Link to={"/entries/edit/" + this.props.entry._id}><button className="btn black-text">Edit</button></Link></td>
                 <td>{ fromDateString }</td>
                 <td>{ toDateString }</td>
                 <td>{this.props.entry.mood}</td>
                 <td>{this.props.entry.symptoms}</td>
                 <td>{this.props.entry.unexplained ? "Yes" : "No"}</td>
+
+                <td><Link to={"/entries/edit/" + this.props.entry._id}><button className="btn black-text">Edit</button></Link></td>
+                <td><button className="btn btn-danger" onClick={this.handleDelete.bind(this)}>Delete</button></td>
                 <td>{this.props.entry.unexplained ? <button type="button" className="btn" data-toggle="collapse" onClick={this.toggleVisibility.bind(this)}>Details</button> : <span></span>} </td>
                 <td
                     id={"details-"+this.props.entry._id}
