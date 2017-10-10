@@ -3,7 +3,9 @@ import {withRouter} from 'react-router';
 import {Meteor} from 'meteor/meteor';
 import {Entries} from '../../api/entries.js'
 import WheelVis from './WheelVis.jsx'
-import { Button, Form, Input, Label} from 'semantic-ui-react';
+import { Button, Form, Input, Checkbox, TextArea, Grid, Transition } from 'semantic-ui-react';
+import Slider from 'react-rangeslider'
+
 
 class CreateEditEntryPage extends Component {
     constructor(props) {
@@ -55,9 +57,8 @@ class CreateEditEntryPage extends Component {
     setMood(name) {
         this.setState({mood: name});
     }
-
-    onToggle() {
-        this.setState({toggleActive: !this.state.toggleActive});
+    handleToggle(){
+        this.setState({toggleActive:!this.state.toggleActive});
     }
 
     handleSubmit(event) {
@@ -79,6 +80,9 @@ class CreateEditEntryPage extends Component {
 
     }
 
+    handleSymptomsChange(value){
+        this.setState({symptoms: value});
+    }
 
     handleMoodChange(event) {
         this.setState({mood: event.target.value});
@@ -90,57 +94,56 @@ class CreateEditEntryPage extends Component {
 
     render() {
         return (
-            <div>
-                <Form className="new-entry" onSubmit={this.handleSubmit.bind(this)}>
-                    <Form.Field width={4}>
+            <Grid columns="two">
+                <Grid.Column>
+
+                    <Form className="new-entry" >
+                        <Form.Field width={8}>
                             <label>Mood</label>
                             <Input
                                 type="text"
                                 value={this.state.mood}
                                 onChange={this.handleMoodChange.bind(this)}
-
                             />
-                    </Form.Field>
-                    <div className="form-group row">
-                        <div className="col-sm-4">
+                        </Form.Field>
+                        <Form.Field width={8}>
                             <label>Conversion Symptoms</label>
-                        </div>
-                        <div className="col-sm-8">
-
-
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-sm-4">
+                            <Slider
+                                min={0}
+                                max={5}
+                                handleLabel=" "
+                                value={this.state.symptoms}
+                                orientation="horizontal"
+                                onChange={this.handleSymptomsChange.bind(this)}
+                            />
+                        </Form.Field>
+                        <Form.Field>
                             <label>Unexplained Symptoms</label>
-                        </div>
-                        <div className="col-sm-8">
-
-                        </div>
-                    </div>
-                    <div className={"form-group row " + (this.state.toggleActive ? "" : "hidden")}>
-                        <div className="col-sm-4">
+                            <Checkbox toggle
+                                      checked={this.state.toggleActive}
+                                      onChange={this.handleToggle.bind(this)}
+                            />
+                        </Form.Field>
+                        <Transition mountOnShow={false} visible={this.state.toggleActive}>
+                            <Form.Field >
                             <label>Thoughts/Actions Before</label>
-                        </div>
-                        <div className="col-sm-8">
-                                <textarea
-                                    rows="4"
-                                    className="form-control"
-                                    value={this.state.thoughts}
-                                    onChange={this.handleThoughtsChange.bind(this)}
-                                />
-                        </div>
-                    </div>
-                    <div className="form-group row">
-                        <div className="col-sm-12">
-                            <button type="submit" className="btn btn-primary pull-right">Submit</button>
-                        </div>
-                    </div>
-                </Form>
-                <div>
+                            <TextArea
+                                rows={4}
+                                value={this.state.thoughts}
+                                onChange={this.handleThoughtsChange.bind(this)}
+                            />
+                            </Form.Field>
+                        </Transition>
+                        <Form.Field>
+                            <Button primary onClick={this.handleSubmit.bind(this)}>Submit</Button>
+                        </Form.Field>
+                    </Form>
+
+                </Grid.Column>
+                <Grid.Column>
                     <WheelVis handler={this.setMood.bind(this)}/>
-                </div>
-            </div>);
+                </Grid.Column>
+            </Grid>);
     }
 }
 

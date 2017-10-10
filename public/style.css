@@ -1,0 +1,10 @@
+div.ui.toggle.checkbox label::before{
+    border: 1px solid #ccc;
+}
+div.ui.toggle.checkbox label::after{
+    border: 1px solid #ccc;
+}
+
+.textarea-hidden {
+    visibility: hidden;
+}

@@ -347,6 +347,8 @@ export default class WheelVis extends Component {
             .attr("d", arc)
             .attr("id", function(d,i){  return ("arc-"+i)})
             .attr("fill-rule", "evenodd")
+            .style("stroke","#000000")
+            .style("stroke-width","1px")
             .style("fill", function(d) {
                 if(colors[d.name]){
                     return colors[d.name];
@@ -406,6 +408,8 @@ export default class WheelVis extends Component {
             .attr("dx", "6") // margin
             .attr("dy", ".35em") // vertical-align
             .on("click",function (d){ self.props.handler(d.name);} );
+
+
         /*
         let angle = d3.scale.linear()
             .domain([0, points-1])
