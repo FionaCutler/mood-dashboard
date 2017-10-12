@@ -21,7 +21,6 @@ const App = (appProps) => {
         <Router>
             <div>
             <Navbar {...appProps} />
-            <Segment>
             <Switch history={browserHistory}>
                 <Route exact name="index" path="/" component={Index}  />
                 <Route exact name="index" path="/entries/view/:userid" component={EntryViewPage}  />
@@ -30,7 +29,6 @@ const App = (appProps) => {
                 <Authenticated path="/entries/edit/:id" component={CreateEditEntryPage} {...appProps}/>
                 <Authenticated path="/alerts" component={AlertPage} {...appProps}/>
             </Switch>
-            </Segment>
         </div>
     </Router>
         </div>

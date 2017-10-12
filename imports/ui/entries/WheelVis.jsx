@@ -30,17 +30,11 @@ export default class WheelVis extends Component {
         let width = 825;
         let height = 825;
         let padding = 10;
-        let el = ReactDOM.findDOMNode(this.refs.chartContainer);
-        let svg = d3.select(el)
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
+        let svg = d3.select("svg#wheel")
 
         let radius = (Math.min(width, height) / 2) - 10;
 
         let points = 50;
-        let x = d3.scale.linear()
-            .range([0, 2 * Math.PI]);
         let y = d3.scale.linear()
             .domain([0, points-1])
             .range([radius/2, radius]);
@@ -91,7 +85,7 @@ export default class WheelVis extends Component {
 
         let data = [
             {
-                x:-Math.PI/8,
+                x:15*Math.PI/8,
                 dx:Math.PI/4,
                 y:0,
                 dy:150,
@@ -343,12 +337,10 @@ export default class WheelVis extends Component {
             .data(data).enter().append("g")
             .attr("transform", "translate(" + (radius + padding) + ", " + (radius + padding) + ")");
 
-        groups.append("svg:path")
+        let paths = groups.append("path")
             .attr("d", arc)
+
             .attr("id", function(d,i){  return ("arc-"+i)})
-            .attr("fill-rule", "evenodd")
-            .style("stroke","#000000")
-            .style("stroke-width","1px")
             .style("fill", function(d) {
                 if(colors[d.name]){
                     return colors[d.name];
@@ -356,11 +348,15 @@ export default class WheelVis extends Component {
                     return colors["default"];
                 }
             })
+            .attr("fill-rule", "nonzero")
+            .style("stroke","#000000")
+            .style("stroke-width","1px")
             .style("opacity", 1)
-
             .on("mouseover", self.mouseover.bind(self))
             .on("click",function (d){  self.props.handler(d.name); } )
-            .each(function(d,i){
+
+
+            paths.each(function(d,i){
 
                 let firstArcSection = /(^.+?)L/;
                 let newArc = firstArcSection.exec( d3.select(this).attr("d") )[1];
@@ -410,47 +406,11 @@ export default class WheelVis extends Component {
             .on("click",function (d){ self.props.handler(d.name);} );
 
 
-        /*
-        let angle = d3.scale.linear()
-            .domain([0, points-1])
-            .range([0, radians]);
-
-        let angle2 = d3.scale.linear()
-            .domain([0, points-1])
-            .range([0, Math.PI/12]);
-        let pathGroup = svg.append("g");
-        let line1 = d3.svg.line.radial()
-            .interpolate("basis")
-            .tension(0)
-            .radius(radius)
-            .angle(function(d, i) { return angle(i); });
-        let line2 = d3.svg.line.radial()
-            .interpolate("basis")
-            .tension(0)
-            .radius(function(d,i){return y(i);})
-            .angle(function(d,i){return angle2(i);});
-        let line3 = d3.svg.line.radial()
-            .interpolate("basis")
-            .tension(0)
-            .radius(radius/2)
-            .angle(function(d, i) { return angle(i); });
-        pathGroup.append("path").datum(d3.range(points))
-            .attr("class", "line")
-            .attr("d", line1)
-            .attr("transform", "translate(" + (radius + padding) + ", " + (radius + padding) + ")");
-        pathGroup.append("path").datum(d3.range(points))
-            .attr("class", "line")
-            .attr("d", line2)
-            .attr("transform", "translate(" + (radius + padding) + ", " + (radius + padding) + ")");
-
-        let combinedD = "";
-        pathGroup.selectAll("path").each(function() {
-            combinedD += d3.select(this).attr("d");
-        });
-        */
     }
 
     render(){
-        return (<div ref="chartContainer" />);
+        return (<div ref="chartContainer" >
+            <svg id="wheel" height="825" width="825"/>
+        </div>);
     }
 }

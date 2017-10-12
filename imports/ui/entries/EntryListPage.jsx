@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import EntryTable from "./EntryTable";
 
+import {Segment } from 'semantic-ui-react';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Entries } from '../../api/entries.js'
@@ -11,10 +12,10 @@ import { Entries } from '../../api/entries.js'
 class EntryListPage extends Component {
     render(){
         return(
-            <div>
+            <Segment>
                 <Link to="/entries/new" role="button" className="ui button"><icon className="fa fa-plus fa-fw"/>Create New Entry</Link>
                 <EntryTable entries={this.props.entries}/>
-            </div>
+            </Segment>
         );
     }
 

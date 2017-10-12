@@ -3,8 +3,9 @@ import {withRouter} from 'react-router';
 import {Meteor} from 'meteor/meteor';
 import {Entries} from '../../api/entries.js'
 import WheelVis from './WheelVis.jsx'
-import { Button, Form, Input, Checkbox, TextArea, Grid, Transition } from 'semantic-ui-react';
-import Slider from 'react-rangeslider'
+import { Button, Form, Input, Checkbox, TextArea, Grid, Segment, Transition, Divider} from 'semantic-ui-react';
+import Slider from 'react-rangeslider';
+import Datetime from 'react-datetime';
 
 
 class CreateEditEntryPage extends Component {
@@ -32,9 +33,8 @@ class CreateEditEntryPage extends Component {
             isEdit = true;
             _id = entry._id;
         } else {
-            fromDate = new Date();
-            fromDate.setHours(fromDate.getHours() - 4);
-            toDate = new Date();
+            fromDate = moment().subtract(4,'hours');
+            toDate = moment();
             toggleActive = false;
             mood = "";
             symptoms = 0;
@@ -64,8 +64,8 @@ class CreateEditEntryPage extends Component {
     handleSubmit(event) {
         event.preventDefault();
         let entry = {
-            fromDate: this.state.fromDate,
-            toDate: this.state.toDate,
+            fromDate: this.state.fromDate.toDate(),
+            toDate: this.state.toDate.toDate(),
             mood: this.state.mood,
             symptoms: this.state.symptoms,
             unexplained: this.state.toggleActive,
@@ -78,6 +78,15 @@ class CreateEditEntryPage extends Component {
         }
         this.props.history.push('/entries');
 
+    }
+
+    handleFromDateChange(date){
+        this.setState({fromDate:date});
+    }
+
+
+    handleToDateChange(date){
+        this.setState({toDate:date});
     }
 
     handleSymptomsChange(value){
@@ -93,11 +102,38 @@ class CreateEditEntryPage extends Component {
     }
 
     render() {
+        const panels = [
+            {
+                title:"Unexplained Symptoms?",
+                content:{
+                    as: Form.TextArea,
+                    key:'content',
+                    label:'Thoughts/Actions Before',
+                    width:8
+                }
+            },
+        ];
         return (
             <Grid columns="two">
-                <Grid.Column>
+                <Grid.Row stretched={true}>
+                    <Grid.Column>
+                        <div className="create-entry-form">
+                    <Form className="new-entry" onSubmit={this.handleSubmit.bind(this)} >
 
-                    <Form className="new-entry" >
+                        <Form.Field width={8}>
+                            <label>From </label>
+                            <Datetime value={this.state.fromDate}
+                                      viewMode="time"
+                                      onChange={this.handleFromDateChange.bind(this)}
+                            />
+                        </Form.Field>
+                        <Form.Field width={8}>
+                            <label>To</label>
+                            <Datetime value={this.state.toDate}
+                                      viewMode="time"
+                                      onChange={this.handleToDateChange.bind(this)}
+                            />
+                        </Form.Field>
                         <Form.Field width={8}>
                             <label>Mood</label>
                             <Input
@@ -118,31 +154,29 @@ class CreateEditEntryPage extends Component {
                             />
                         </Form.Field>
                         <Form.Field>
-                            <label>Unexplained Symptoms</label>
+                            <label>Unexplained Symptoms?</label>
                             <Checkbox toggle
-                                      checked={this.state.toggleActive}
+                                      value={this.state.toggleActive}
                                       onChange={this.handleToggle.bind(this)}
-                            />
+                                    />
                         </Form.Field>
-                        <Transition mountOnShow={false} visible={this.state.toggleActive}>
-                            <Form.Field >
-                            <label>Thoughts/Actions Before</label>
-                            <TextArea
-                                rows={4}
-                                value={this.state.thoughts}
-                                onChange={this.handleThoughtsChange.bind(this)}
-                            />
+                        <Divider hidden />
+                        <Transition visible={this.state.toggleActive} duration={500}>
+                            <Form.Field>
+                                <label>Thoughts/Actions Before</label>
+                                <TextArea />
                             </Form.Field>
                         </Transition>
-                        <Form.Field>
-                            <Button primary onClick={this.handleSubmit.bind(this)}>Submit</Button>
-                        </Form.Field>
+                    <Form.Field>
+                        <Button primary>Submit</Button>
+                    </Form.Field>
                     </Form>
-
-                </Grid.Column>
-                <Grid.Column>
+                        </div>
+                    </Grid.Column>
+                    <Grid.Column>
                     <WheelVis handler={this.setMood.bind(this)}/>
-                </Grid.Column>
+                    </Grid.Column>
+                </Grid.Row>
             </Grid>);
     }
 }

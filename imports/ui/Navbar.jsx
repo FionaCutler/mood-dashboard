@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import AccountDialog from "./accounts/AccountDialog.jsx";
-import { Menu } from 'semantic-ui-react';
+import { Menu, Button } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
+import { Meteor } from 'meteor/meteor';
+
 
 class Navbar extends Component {
     constructor(props){
         super(props);
 
-        console.log(props.location.pathname);
         let item;
         if (props.location.pathname === "/alerts"){
             item = "alerts";
@@ -22,6 +23,12 @@ class Navbar extends Component {
     }
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
     render(){
+        let logoffButtonItem;
+        if(Meteor.user()){
+            logoffButtonItem = <Menu.Item><Button>Logoff</Button></Menu.Item>;
+        } else{
+            logoffButtonItem = "";
+        }
         return(
             <div>
                 <Menu pointing>
@@ -40,6 +47,7 @@ class Navbar extends Component {
                                onClick={this.handleItemClick}>Alerts</Menu.Item>
                     <Menu.Menu position='right'>
                         <Menu.Item ><AccountDialog/></Menu.Item>
+                        {logoffButtonItem}
                     </Menu.Menu>
                 </Menu>
             </div>
